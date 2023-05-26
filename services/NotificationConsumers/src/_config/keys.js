@@ -1,0 +1,9 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
+const KEYS = {
+  AMQP_URI:process.env.AMQP_URI,
+  IN_APP_NOTIFICATION_QUEUE: process.env.IN_APP_NOTIFICATION_QUEUE
+};
+
+module.exports = KEYS;

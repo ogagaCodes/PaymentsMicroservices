@@ -1,0 +1,34 @@
+{
+  "name": "notificationconsumers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "start.consumers.js",
+  "scripts": {
+    "start": "node start.consumers.js",
+    "start:dev": "nodemon start.consumers.js",
+    "test": "mocha --timeout 20000 --exit",
+    "coverage": "nyc npm run test"
+  },
+  "keywords": [],
+  "author": "Adjaro Lord Oagag",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.8.0",
+    "date-fns": "^2.25.0",
+    "dotenv": "^8.2.0",
+    "dotenv-safe": "^8.2.0",
+    "mongoose": "^6.4.1",
+    "redis": "^3.0.2",
+    "socket.io": "^4.5.1",
+    "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "faker": "^5.5.3",
+    "mocha": "^10.0.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.19",
+    "nyc": "^15.1.0",
+    "sinon": "^14.0.0",
+    "supertest": "^6.2.4"
+  }
+}
