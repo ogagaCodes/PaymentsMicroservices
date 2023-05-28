@@ -6,7 +6,7 @@ const logger = require("./logger.conf");
 
 mongoose.set("strictQuery", true);
 mongoose
-  .connect(KEYS.mongoURI, {
+  .connect(KEYS.MONGODBURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

@@ -4,14 +4,14 @@ const { helpers } = require("../../_helpers/index");
 
 const NotificationConsumer = new Connnection(
   KEYS.AMQP_URI,
-  KEYS.WALLET_UPDATE_QUEUE,
+  KEYS.IN_APP_NOTIFICATION_QUEUE,
   async (msg) => {
     const channel = await NotificationConsumer.getChannel();
     if (msg !== null) {
       const message = msg.content.toString();
       console.info(` [x] Consumed : ${message}`);
 
-      const { id, notificationType, bodyData } = JSON.parse(message);
+      const { notificationType, bodyData } = JSON.parse(message);
 
       try {
         //   send notification based on type

@@ -1,7 +1,7 @@
 const { Connnection } = require("../../index");
 const KEYS = require("../../_config/keys");
 
-exports.publishInAppNotification = async (id, notificationType, data) => {
+exports.publishInAppNotification = async (notificationType, data) => {
   try {
     let NotificationPublisher = new Connnection(
       KEYS.AMQP_URI,
@@ -11,7 +11,7 @@ exports.publishInAppNotification = async (id, notificationType, data) => {
       }
     );
     const channel = await NotificationPublisher.getChannel();
-    await NotificationPublisher.publish(id,notificationType, data);
+    await NotificationPublisher.publish(notificationType, data);
     process.on('exit', (code) => {
       channel.close();
       console.log(`Closing ${channel} channel`);

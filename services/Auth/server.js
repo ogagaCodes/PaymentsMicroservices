@@ -11,10 +11,10 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    logger.info(`User Service Database Connected......`);
-    const PORT = process.env.PORT || 2101;
+    logger.info(`Auth Service Database Connected......`);
+    const PORT = process.env.PORT || 7000;
     const server = app.listen(PORT, () => {
-      logger.info(`User Service has started!... and running on port ${PORT}`);
+      logger.info(`Auth Service has started!... and running on port ${PORT}`);
     });
   })
   .catch((error) => console.log(error));

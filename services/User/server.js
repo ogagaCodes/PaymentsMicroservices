@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const app = require("./src");
 const KEYS = require("./src/_config/keys");
 const logger = require("./logger.conf");
-
+const CreateUserQueue = require("./src/_queue/consumers/createuser.consumer");
 
 mongoose.set("strictQuery", true);
 mongoose
@@ -18,3 +18,5 @@ mongoose
     });
   })
   .catch((error) => console.log(error));
+
+  CreateUserQueue.consume("CREATE USER Consumer Running...")

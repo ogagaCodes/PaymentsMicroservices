@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const schema = mongoose.Schema(
   {
+    user_id: String,
     first_name: String,
     last_name: String,
     phone_number: { type: String, sparse: true },
@@ -13,13 +14,11 @@ const schema = mongoose.Schema(
       // lc= local auth; gg=google auth; fb=facebook auth; ap =apple auth
       enum: ["lc", "gg", "fb", "ap"],
     },
-    image: String,
-    cover_img: String,
     user_type: {
       type: String,
       enum: ["user"],
     },
-    is_blocked:{type: Boolean},
+    is_blocked:{type: Boolean, default: false},
     notification: { 
       push_notification: {
         type: Boolean,

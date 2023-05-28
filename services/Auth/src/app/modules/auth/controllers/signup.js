@@ -1,7 +1,5 @@
 const axios = require("axios");
 const { jwtSign, jwtDecode } = require("../../../../_helpers/jwtUtil");
-const KEYS = require("../../../../_config/keys");
-const { TYPE } = require("../../../../_constants/record.type");
 const { HTTP } = require("../../../../_constants/http");
 const { RESPONSE } = require("../../../../_constants/response");
 const createError = require("../../../../_helpers/createError");
@@ -71,7 +69,6 @@ exports.signUp = async (req, res, next) => {
         user_id: isUser._id,
         username,
         phone_number: req.body.phone_number,
-        imei: req.body.imei || " ",
         email: email,
         auth_type: req.body.auth_type || "lc",
         user_type: req.body.user_type,
@@ -81,7 +78,13 @@ exports.signUp = async (req, res, next) => {
         await CreateUserPublisher.publishToCreateUserQueue(bodyData);
 
       // publish to create wallet queue to create users wallet
-      await CreateWalletPublisher.publishToCreateWalletQueue(bodyData);
+      const createWalletData = {
+        user_id: isUser_id,
+        user_email: email,
+        user_phone_number: phone_number,
+        user_type: "user"
+      }
+      await CreateWalletPublisher.publishToCreateWalletQueue(createWalletData);
       //    data to return
       const resData = {
         ...loginRecord._doc,

@@ -1,7 +1,6 @@
 const { Router } = require("express");
-const { authorize } = require("../../../middlewares/authorizeUser");
 const validateRequest = require("../../../middlewares/vallidate");
-
+const { authorize } = require("../../../middlewares/authoriseUser")
 
 const loginSchema = require("../../../validators/auth/login.validator");
 const signUpSchema = require("../../../validators/auth/signup.validator");

@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const Wallets = require("./modules/wallets/routes/wallet.routes");
+const Wallets = require("./modules/wallets/routes/wallets.routes");
 
 
 

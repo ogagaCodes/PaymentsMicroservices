@@ -37,7 +37,7 @@ const apiRouter = express.Router();
 
 // expose routes here
 apiRouter.use(routes());
-const apiURL = `/auth/${KEYS.appVersion}`;
+const apiURL = `/payments/${KEYS.appVersion}`;
 app.use(apiURL, apiRouter);
 // handler for route-not-found
 apiRouter.use((_req, _res, next) => {
