@@ -49,6 +49,9 @@ class Repository {
     });
   }
 
+  streamData(queryData){
+    return this.Model.find(queryData).cursor()
+  }
   count(condition, callback) {
     if (condition) {
       return this.Model.where(condition).count(callback);

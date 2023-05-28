@@ -1,5 +1,5 @@
 const Joi = require("joi");
 
-exports.creditWalletSchema = Joi.object({
+exports.userWalletSchema = Joi.object({
     user_id: Joi.string().required(),
   });

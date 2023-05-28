@@ -6,15 +6,15 @@ const validateRequest = require("../../../middlewares/vallidate");
 const DepositFundsSchema = require("../../../validators/payments/depositFunds.validator");
 
 // controller
-const DepositFundsController = require("../controllers/");
+const DepositFundsController = require("../controllers/depositFunds");
 
 const router = Router();
 
 router.post(
   "/pay",
   authorize(["user"]),
-  validateRequest(UserDetails.getUserByIdQuerySchema, "body"),
-  UserDeatailController.getAUser
+  validateRequest(DepositFundsSchema.depositFundsSchema, "body"),
+  DepositFundsController.creditWallet
 );
 
 module.exports = router;

@@ -18,13 +18,17 @@ class WallettService {
 
   }
   async deleteAll (condition = {}) {
-    return this.WalletRepository.deleteMany (condition)
+    return this.WalletRepository.delete(condition)
 
   }
 
 
   async all (limit, page, data) {
     return this.WalletRepository.all (limit, page, data)
+  }
+
+  async streamAll (queryData) {
+    return this.WalletRepository.streamData(queryData)
   }
 
   async findWalletById (id) {

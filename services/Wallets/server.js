@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 const app = require("./src");
 const KEYS = require("./src/_config/keys");
 const logger = require("./logger.conf");
+const CreateWalletConsumer = require("./src/_queue/consumers/createWallet.consumers");
+const UpdateWalletConsumer = require("./src/_queue/consumers/walletUpdateConsumers");
 
+const { startCron } = require("./src/_helpers/cron/autoDailyDeposit")
 
 mongoose.set("strictQuery", true);
 mongoose
@@ -18,3 +21,7 @@ mongoose
     });
   })
   .catch((error) => console.log(error));
+
+  startCron();
+CreateWalletConsumer.consume("CREATE WALLET consumer running ...")
+UpdateWalletConsumer.consume("UPDate WALLET consumer running ...")
