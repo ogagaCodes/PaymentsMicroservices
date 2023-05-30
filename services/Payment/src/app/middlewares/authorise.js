@@ -24,7 +24,7 @@ exports.authorize = (role = []) => {
     try {
       //   validate
       const user = await axios.get(
-        `${KEYS.AUTH_URI}/auth/v1/user/validate-token?platform=web`,
+        `${KEYS.AUTH_URI}/auth/v1/validate-token`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

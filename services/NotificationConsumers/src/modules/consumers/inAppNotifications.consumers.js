@@ -1,6 +1,7 @@
 const { Connnection } = require("../init_consumers");
 const KEYS = require("../../_config/keys");
 const { helpers } = require("../../_helpers/index");
+const { sendSingleMail } = require("../../../src/_helpers/mail/zeptomail/sendSingleMail")
 
 const NotificationConsumer = new Connnection(
   KEYS.AMQP_URI,
@@ -19,7 +20,7 @@ const NotificationConsumer = new Connnection(
           await helpers.sendSMS(bodyData);
         }
         if (notificationType === "mail") {
-          await helpers.sendSMS(bodyData);
+          await sendSingleMail(bodyData);
         }
         if (notificationType === "push") {
           await helpers.sendPushNotification(bodyData);

@@ -1,4 +1,4 @@
-const { Connnection } = require('../index');
+const { Connnection } = require("../../_queue/index");
 const  KEYS  = require('../../_config/keys'); 
 const UserService = require('../../app/modules/user/service/user.services');
 
@@ -9,12 +9,15 @@ const CreateUserConsumer = new Connnection(KEYS.AMQP_URI, KEYS.CREATE_USER_QUEUE
       const message = msg.content.toString();
       console.info(` [x] Consumed : ${message}`);
 
-      const {
-        bodyData
-      } = JSON.parse(message);
+      const 
+      {bodyData}
+       = JSON.parse(message);
 
       try {
-    //   create wallet here
+    //   create user here
+    console.log("REQUEST DATA ", bodyData);
+    console.log("REQUEST DATA RAW ", message);
+
     const newUser = await new UserService().createUser(bodyData);
     // publish to notifcation 
         return channel.ack(msg);

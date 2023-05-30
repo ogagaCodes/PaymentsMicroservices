@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-exports.depositFundsSchema = Joi.object({
+exports.fundWalletSchema = Joi.object({
     pin: Joi.string().required(),
     amount: Joi.number().positive().required(),
     channel: Joi.string().valid("card", "wallet-wallet", "bank-transfer", "dev-test").required()

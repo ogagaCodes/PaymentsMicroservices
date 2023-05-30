@@ -5,11 +5,11 @@ class SessionService {
     this.SessionRepository = SessionRepository;
   }
 
-  async create(data) {
+  async createSession(data) {
     return this.SessionRepository.create(data);
   }
 
-  async findARecord(query) {
+  async findASession(query) {
     return this.SessionRepository.findOne(query);
   }
   async find(query) {

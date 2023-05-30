@@ -28,8 +28,7 @@ exports.authorize = (role = []) => {
       const user = jwtVerify(token);
       if(user){
         const LoginRecord = await new LoginService().findARecord(
-          { user_id: user._id },
-          TYPE.LOGIN
+          { user_id: user._id }
         );
         if(!LoginRecord){
           return next(
@@ -44,7 +43,7 @@ exports.authorize = (role = []) => {
           ``;
         } else {
           // check if session is still active
-          const session = await new SessionLogsService().findARecord({
+          const session = await new SessionLogsService().findASession({
             session_token: token,
           });
           if (session && !session.is_active) {

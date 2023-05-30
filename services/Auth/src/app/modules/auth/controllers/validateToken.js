@@ -3,11 +3,12 @@ const { RESPONSE } = require('../../../../_constants/response');
 const createError = require('../../../../_helpers/createError');
 const { createResponse } = require('../../../../_helpers/createResponse');
 const VallidateService  = require('../services/vallidate.service');
+const logger = require("../../../../../logger.conf");
 
 exports.validate = async (req, res, next) => {
   try {
     // check for token record
-    const { error, message, data} = await new VallidateService().vallidateToken(req.user, req.token)
+    const { error, message, data} = await new VallidateService().vallidateToken(req.token)
     if (error) {
         return next(
           createError(HTTP.BAD_REQUEST, [
@@ -27,7 +28,7 @@ exports.validate = async (req, res, next) => {
     }
   } catch (err) {
     logger.error(err);
-
+   console.log(err);
     return next(createError.InternalServerError(err));
   }
 };
