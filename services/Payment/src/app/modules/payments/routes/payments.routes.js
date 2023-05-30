@@ -3,18 +3,18 @@ const { authorize } = require("../../../middlewares/authorise");
 const validateRequest = require("../../../middlewares/vallidate");
 
 // validator
-const DepositFundsSchema = require("../../../validators/payments/depositFunds.validator");
+const FnudWalletSchema = require("../../../validators/payments/fundWallet.validator");
 
 // controller
-const DepositFundsController = require("../controllers/depositFunds");
+const FundWalletController = require("../controllers/fundWallet");
 
 const router = Router();
 
 router.post(
   "/pay",
   authorize(["user"]),
-  validateRequest(DepositFundsSchema.depositFundsSchema, "body"),
-  DepositFundsController.creditWallet
+  validateRequest(FnudWalletSchema.fundWalletSchema, "body"),
+  FundWalletController.creditWallet
 );
 
 module.exports = router;

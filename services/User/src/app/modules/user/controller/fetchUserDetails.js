@@ -7,7 +7,7 @@ const logger = require("../../../../../logger.conf");
 
 exports.getAUser = async (req, res, next) => {
   try {
-    const user = await new UserService().findAUser({ _id: req.params.id });
+    const user = await new UserService().findAUser({ user_id: req.user.user_id });
     if (!user) {
       return next(
         createError(HTTP.BAD_REQUEST, [

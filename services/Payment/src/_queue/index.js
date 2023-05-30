@@ -24,10 +24,9 @@ class Connnection {
     return consumer;
   }
 
-  async publish(id, bodyData) {
+  async publish(bodyData) {
     const { channel, conn } = await this.createConnection();
     const data = {
-      id,
       bodyData
     }
     this.channel = channel;

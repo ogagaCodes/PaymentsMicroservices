@@ -12,6 +12,7 @@ exports.startCron = async () => {
   const userNotificationdata = [];
   // daily cron [For demonstartion purposes]
   return cron.schedule("* * * * *", async () => {
+    console.log("Daily Cron Running....")
     // get scheduled amount users plan
     const allUserSavingsPlan = await new SavingsPlanService()
       .streamAll({

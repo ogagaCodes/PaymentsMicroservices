@@ -10,7 +10,7 @@ class LoginService {
   }
 
   async findARecord(query) {
-    return this.LoginRepository.findOne(query);
+    return this.LoginRepository.findOne(query).select('-password');
   }
   async find(query) {
     return this.LoginRepository.find(query);

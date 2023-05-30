@@ -1,4 +1,4 @@
-const { Connnection } = require("../../index");
+const { Connnection } = require("../../_queue/index");
 const KEYS = require("../../_config/keys");
 
 exports.publishToTransactionsQueue = async (id, data) => {

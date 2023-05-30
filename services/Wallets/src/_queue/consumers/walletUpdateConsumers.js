@@ -1,4 +1,4 @@
-const { Connnection } = require("../index");
+const { Connnection } = require("../../_queue/index");
 const KEYS = require("../../_config/keys");
 const WalletService = require("../../app/modules/wallets/services/wallet.services");
 const NotificationQueue = require("../publishers/inAppNotification.publishers");

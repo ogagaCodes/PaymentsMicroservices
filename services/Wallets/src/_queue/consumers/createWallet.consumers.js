@@ -1,4 +1,4 @@
-const { Connnection } = require('../index');
+const { Connnection } = require("../../_queue/index");
 const  KEYS  = require('../../_config/keys'); 
 const WalletService = require('../../app/modules/wallets/services/wallet.services');
 
@@ -9,9 +9,9 @@ const CreateWalletConsumer = new Connnection(KEYS.AMQP_URI, KEYS.CREATE_WALLET_Q
       const message = msg.content.toString();
       console.info(` [x] Consumed : ${message}`);
 
-      const {
-        bodyData
-      } = JSON.parse(message);
+      const 
+        {bodyData}
+       = JSON.parse(message);
 
       try {
     //   create wallet here

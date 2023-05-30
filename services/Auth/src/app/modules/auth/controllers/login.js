@@ -14,7 +14,9 @@ const logger = require("../../../../../logger.conf");
 exports.login = async (req, res, next) => {
   try {
     //  verify user exist=====check the login model
-    const userLogin = await new LoginService().findARecord({username: req.body.username}) ;
+    const userLogin = await new LoginService().findARecord({
+      username: req.body.username,
+    });
     if (!userLogin) {
       return next(
         createError(HTTP.UNAUTHORIZED, [
@@ -22,15 +24,32 @@ exports.login = async (req, res, next) => {
             status: RESPONSE.ERROR,
             message: "User Does Not Exist",
             statusCode: HTTP.SERVER_ERROR,
-            data: user,
+            data: {},
             code: HTTP.UNAUTHORIZED,
           },
         ])
       );
     } else {
-        const user_id = user.user_id;
+        const passwordMatch = await comparePassword(
+          userLogin.password,
+          req.body.password
+        );
+        if (!passwordMatch) {
+          return next(
+            createError(HTTP.UNAUTHORIZED, [
+              {
+                status: RESPONSE.ERROR,
+                message: "Invalid Password/Username",
+                statusCode: HTTP.SERVER_ERROR,
+                data: null,
+                code: HTTP.UNAUTHORIZED,
+              },
+            ])
+          );
+      } else {
+        const user_id = userLogin.user_id;
         const accessToken = jwtSign(user_id);
-    
+
         const { iat } = jwtDecode(accessToken) || {};
         // update referesh token model
         const updateduser = await new LoginService().update(
@@ -39,10 +58,9 @@ exports.login = async (req, res, next) => {
         );
         // generate session id
         const now = Date.now();
-        const stringTime = `${req.body.email}-${now}`;
         const session = {
           loggedInTime: now,
-          user_id: user.user_id,
+          user_id: userLogin.user_id,
         };
         const session_id = jwtSignAccessLogsData(session);
         // push login time to access logs
@@ -50,27 +68,28 @@ exports.login = async (req, res, next) => {
         let sessionData = {
           session_id,
           session_token: accessToken,
-          user_id: String(user.user_id),
-          email: String(user.email),
+          user_id: String(userLogin.user_id),
+          email: String(userLogin.email),
           is_active: true,
           lat: req.body.lat || null,
           long: req.body.long || null,
           logged_in_time: now,
-          role: String(user.user_type),
+          role: String(userLogin.user_type),
         };
-        const userSession = await new SessionService().createUserLog(
+        const userSession = await new SessionService().createSession(
           sessionData
         );
         const resData = {
           session_id: userSession.session_id,
+          accessToken,
           ...updateduser,
         };
         return createResponse("User Logged In", resData)(res, HTTP.OK);
+      }
     }
- 
   } catch (err) {
     logger.error(err);
-    console.log(err)
+    console.log(err);
     return next(createError.InternalServerError(err));
   }
 };
