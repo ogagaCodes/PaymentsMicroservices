@@ -1,7 +1,7 @@
 const { Connnection } = require("../init_consumers");
 const KEYS = require("../../_config/keys");
-const { helpers } = require("../../_helpers/index");
-const { sendSingleMail } = require("../../../src/_helpers/mail/zeptomail/sendSingleMail")
+const { sendSmsTwilio } = require("../../_helpers/sms/index");
+const { sendFailedDepositMail } = require("../../../src/_helpers/mail/index");
 
 const NotificationConsumer = new Connnection(
   KEYS.AMQP_URI,
@@ -11,19 +11,24 @@ const NotificationConsumer = new Connnection(
     if (msg !== null) {
       const message = msg.content.toString();
       console.info(` [x] Consumed : ${message}`);
-
-      const { notificationType, bodyData } = JSON.parse(message);
-
+      const { type, bodyData } = JSON.parse(message);
       try {
+        console.log("TYPE ==== ", type);
         //   send notification based on type
-        if (notificationType === "sms") {
-          await helpers.sendSMS(bodyData);
+        if (type === "sms") {
+          console.log("GOt Here......");
+          // await sendSmsTwilio(bodyData);
+          console.log("Sending Sms.................");
         }
-        if (notificationType === "mail") {
-          await sendSingleMail(bodyData);
+        if (type === "mails") {
+          console.log("executing this......");
+          for (let i = 0; i < bodyData.length; i++) {
+            // bbbbbbb
+          }
         }
-        if (notificationType === "push") {
-          await helpers.sendPushNotification(bodyData);
+        if (type === "push") {
+          // await helpers.sendPushNotification(bodyData);
+          console.log("GOT HERE........");
         }
         return channel.ack(msg);
       } catch (error) {

@@ -19,7 +19,7 @@ exports.sendSingleMail = async (data) => {
           {
           "email_address": 
               {
-                  "address": data.email,
+                  "address": data.userEmail,
                   "name": data.name ? data.name : "Payment Test"
               }
           }

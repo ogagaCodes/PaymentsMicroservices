@@ -50,7 +50,7 @@ class Repository {
   }
 
   streamData(queryData){
-    return this.Model.find(queryData).cursor()
+    return this.Model.find(queryData).stream();
   }
   count(condition, callback) {
     if (condition) {
